@@ -1,0 +1,40 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      CommandName:
+      - aldo observability-configuration show
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python/3.11.9 (Windows-10-10.0.26200-SP0) AZURECLI/2.90.0
+    method: GET
+    uri: https://management.azure.com/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.EdgeOperator/observabilityConfiguration/default?api-version=2026-06-01-preview
+  response:
+    body:
+      string: '{"id":"/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.EdgeOperator/observabilityConfiguration/default","name":"default","type":"Microsoft.EdgeOperator/observabilityConfiguration","properties":{"resourceGroup":null,"tenantId":null,"location":null,"subscriptionId":null,"servicePrincipalId":null,"cloud":"AzureCloud"}}'
+    headers:
+      content-length:
+      - '341'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Fri, 18 Sep 2026 21:20:22 GMT
+      server:
+      - Microsoft-HTTPAPI/2.0
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-content-type-options:
+      - nosniff
+      x-ms-providerhub-traffic:
+      - 'True'
+      x-ms-response-source:
+      - OperatorRPHost
+    status:
+      code: 200
+      message: OK
+version: 1

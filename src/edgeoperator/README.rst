@@ -21,9 +21,27 @@ values on every PUT; the service requires all four. Both commands require the Op
 The commands use the public `Microsoft.EdgeOperator SystemConfiguration REST API specification <https://github.com/Azure/azure-rest-api-specs/tree/main/specification/edgeoperator/resource-manager/Microsoft.EdgeOperator/SystemConfiguration>`_.
 
 Use ``az aldo log-collection collect`` or ``az aldo log-collection collect-indirect`` to collect logs for a
-time range. Both commands wait for the job to finish and return it; with ``--no-wait``, use
-``az aldo log-collection list --from-date`` to find the job and ``az aldo log-collection wait`` to wait for it.
-Use ``az aldo log-collection show`` to retrieve a job by its GUID.
+time range. Both commands wait for completion and return the log collection job.
+Use the returned ``name`` with ``show --job-id`` to view the result later.
+With ``--no-wait``, both commands immediately return ``status: Accepted`` and an ``operationStatusUrl``.
+
+To start collection and wait for the result later::
+
+    $result = az aldo log-collection collect --from-date $from --to-date $to --no-wait | ConvertFrom-Json
+    $job = az aldo log-collection wait --operation-status-url $result.operationStatusUrl | ConvertFrom-Json
+    az aldo log-collection show --job-id $job.name
+
+This wait mode returns the completed collection and reports failed or canceled operations.
+Use ``--timeout`` to set the maximum wait in seconds
+(default: 3600). Polling follows the service's retry interval unless ``--interval`` is supplied.
+Use the same cloud and subscription as the original collection request.
+
+To collect logs and wait for the result::
+
+    $job = az aldo log-collection collect --from-date $from --to-date $to | ConvertFrom-Json
+    az aldo log-collection show --job-id $job.name
+
+Use ``az aldo log-collection list --from-date <date-time>`` to view job history.
 
 The commands use the `Microsoft.EdgeOperator LogCollections REST API specification <https://github.com/Azure/azure-rest-api-specs/tree/main/specification/edgeoperator/resource-manager/Microsoft.EdgeOperator/LogCollections>`_.
 
